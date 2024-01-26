@@ -11,10 +11,18 @@ const authRouter = require('./routes/auth');
 
 const app = express();
 const PORT = 3000;
-const DB = "mongodb+srv://rohitrk9693:Robthebob!@2788@cluster0.olie6zc.mongodb.net/?retryWrites=true&w=majority";
+
+
+const password = "Robthebob!@2788";
+
+// Encode special characters in the password
+const encodedPassword = encodeURIComponent(password);
+const DB = `mongodb+srv://rohitrk9693:${encodedPassword}@cluster0.olie6zc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
 //middleware
 //client ->middleware -> server->client
 
+app.use(express.json());
 app.use(authRouter);
 
 
@@ -27,11 +35,17 @@ app.use(authRouter);
 
 
 //connections
-mongoose.connect(DB).then(() =>{
-    console.log('Connection Successful');
+console.log('Before connecting to MongoDB');
+ mongoose.connect(DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('MongoDB Connection Successful');
 }).catch((e) => {
-    console.log(e);
+  console.error('MongoDB Connection Failed:', e.message);
 });
+
+  
 app.listen(PORT,() =>{
     console.log(`Server is running on port ${PORT}`)
 

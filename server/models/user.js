@@ -17,13 +17,14 @@ const userSchema = mongoose.Schema({
                 const re =   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
                 return value.match(re);
             },
-            message : 'Pleas enter valid email address'
+            message : 'Please enter valid email address'
         },
 
     },
     password : {
         required : true,
         type: String,
+       
     },
     address: {
         type: String,
