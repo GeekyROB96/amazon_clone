@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
             elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+       ),
       onGenerateRoute: ((settings) {
         generateRoute(settings);
       }),
