@@ -17,29 +17,45 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
+  AuthService authService = AuthService();
 
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final AuthService authService = AuthService();
+  final TextEditingController _signupEmailController = TextEditingController();
+  final TextEditingController _signupPasswordController =
+      TextEditingController();
+  final TextEditingController _signupNameController = TextEditingController();
+
+  final TextEditingController _signinEmailController = TextEditingController();
+  final TextEditingController _signinPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _nameController.dispose();
-    _passwordController.dispose();
+    _signupEmailController.dispose();
+    _signupNameController.dispose();
+    _signupPasswordController.dispose();
+
+    _signinEmailController.dispose();
+    _signinPasswordController.dispose();
   }
 
   void signUpUser() {
     authService.signupUser(
+      context: context,
+      email: _signupEmailController.text,
+      password: _signupPasswordController.text,
+      name: _signupNameController.text,
+    );
+  }
+
+  void signInUser() {
+    authService.signinUser(
         context: context,
-        email: _emailController.text,
-        password: _passwordController.text,
-        name: _nameController.text);
+        email: _signinEmailController.text,
+        password: _signinPasswordController.text);
   }
 
   @override
@@ -84,17 +100,19 @@ class _AuthScreenState extends State<AuthScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                            controller: _nameController, hintText: "Name"),
+                            controller: _signupNameController,
+                            hintText: "Name"),
                         const SizedBox(
                           height: 10,
                         ),
                         CustomTextField(
-                            controller: _emailController, hintText: "Email"),
+                            controller: _signupEmailController,
+                            hintText: "Email"),
                         const SizedBox(
                           height: 10,
                         ),
                         CustomTextField(
-                            controller: _passwordController,
+                            controller: _signupPasswordController,
                             hintText: "Password"),
                         const SizedBox(
                           height: 10,
@@ -103,7 +121,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             text: 'SignUp',
                             onTap: () {
                               if (_signUpFormKey.currentState!.validate()) {
-                                  signUpUser();
+                                signUpUser();
                               }
                             }),
                       ],
@@ -141,17 +159,22 @@ class _AuthScreenState extends State<AuthScreen> {
                           height: 10,
                         ),
                         CustomTextField(
-                            controller: _emailController, hintText: "Email"),
+                            controller: _signinEmailController,
+                            hintText: "Email"),
                         const SizedBox(
                           height: 10,
                         ),
                         CustomTextField(
-                            controller: _passwordController,
+                            controller: _signinPasswordController,
                             hintText: "Password"),
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomButton(text: 'SignIn', onTap: () {}),
+                        CustomButton(text: 'SignIn', onTap: () {
+                           if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                        }),
                       ],
                     ),
                   ),

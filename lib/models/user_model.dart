@@ -23,6 +23,7 @@ class UserModel {
     return <String, dynamic>{
       'id': id,
       'name': name,
+      'email': email,
       'password': password,
       'address': address,
       'type': type,
@@ -34,10 +35,11 @@ class UserModel {
     return UserModel(
       id: map['_id'] as String,
       name: map['name'] as String,
+      email: map['email'] as String,
       password: map['password'] as String,
       address: map['address'] as String,
       type: map['type'] as String,
-      token: map['token'] as String, email: '',
+      token: map['token'] as String,
     );
   }
 

@@ -45,8 +45,9 @@ console.log('Before connecting to MongoDB');
   console.error('MongoDB Connection Failed:', e.message);
 });
 
-  
-app.listen(PORT,"0.0.0.0",() =>{
+const host = '0.0.0.0'; // Allows connections from any IP address
+
+app.listen(PORT,host,() =>{
     console.log(`Server is running on port ${PORT}`)
 
 })
